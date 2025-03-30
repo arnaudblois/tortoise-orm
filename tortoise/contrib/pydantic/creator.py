@@ -384,7 +384,6 @@ class PydanticModelCreator:
                 return _MODEL_INDEX[self._hash]
 
         self._pconfig = self._initialize_pconfig()
-        self._properties["model_config"] = self._pconfig
         model = create_model(
             self._name,
             __base__=PydanticModel,
@@ -392,6 +391,7 @@ class PydanticModelCreator:
             __validators__=self._validators,
             **self._properties,
         )
+        self.model_config = self._pconfig
         # Copy the Model docstring over
         model.__doc__ = _cleandoc(self._cls)
         # Store the base class
